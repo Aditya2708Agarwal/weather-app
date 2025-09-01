@@ -26,7 +26,7 @@ function SearchBar() {
                     <span>View All</span>
                 </div>
                 <div className='text-sm text-white/50'>Population: 8,336,817</div>
-                <Search className='w-5 h-5 text-white/50 group-hover:text-white/60'/>
+                <Search className='w-5 h-5 text-white/50 group-hover:text-white/60 transition-all'/>
                 </button>
             </div>
         </div>
