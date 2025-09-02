@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar'
 import TemperatureToggle from './components/temperatureToggle'
 import LoadingSpinner from './components/LoadinSpinner'
 import ErrorMessage from './components/ErrorMessage'
+import WeatherCard from './components/WeatherCard'
 
 
 function App() {
