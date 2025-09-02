@@ -43,6 +43,20 @@ function WeatherCard() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <div className="bh-white/10 backdrop-blur-xl rounded-2xl p-4 hover:bg-white/20 transition-all duration-300 group">
                     <div className="flex items-center space-x-3 mb-2">
+                        <div className={`p-2 rounded-full bg-white/10 group-hover:bg-white/20 transition-all duration-300`}>
+
+                        </div>
+                        <span className="text-white/70 text-sm font-medium">Stats Label </span>
+                    </div>
+                    <div className="text-white font-semibold text-lg pl-11">
+                        Stats Value 
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gradient-to-r from-blue-500 to-blue-700 backdrop-blur-sm rounded-2xl p-4 text-white/90 border-orange-400/20">
+                    <div className="flex items-center space-x-3 mb-2">
                         <div>
 
                         </div>
