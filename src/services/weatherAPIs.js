@@ -1,0 +1,124 @@
+const API_KEY = "37d2728642154e39ae04a05c2d9fb256";
+const BASE_URL = "https://api.openweathermap.org/data/2.5";
+const GEO_URL = "https://api.openweathermap.org/geo/1.0";
+
+export const getCurrentWeather = async (city) => {
+    try {
+        const response = await fetch(`${BASE_URL}/weather?q=${city}&appid=${API_KEY}&units=metric`);
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                throw new Error("City not found. Please check the city name and try again.");
+            } else if (response.status === 401) {
+                throw new Error("Invalid API key. Please check your API key and try again.");
+            }
+        } else {
+            throw new Error("Failed to fetch current weather data");
+        }
+
+
+        const data = await response.json();
+
+        if (!data.dt) {
+            data.dt = Math.floor(Date.now() / 1000);
+        }
+
+        return data;
+    } catch (error) {
+        if (error instanceof TypeError && error.message.includes("fetch")) {
+            throw new Error("Network error. Please check your internet connection and try again.");
+        }
+        throw error;
+    }
+}
+
+
+export const getCurrentWeatherByCoords = async (lat, lon) => {
+    try {
+        const response = await fetch(`${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error("Invalid API key. Please check your API key and try again.");
+            }
+        } else {
+            throw new Error("Failed to fetch current weather data");
+        }
+
+
+        const data = await response.json();
+
+        if (!data.dt) {
+            data.dt = Math.floor(Date.now() / 1000);
+        }
+
+        return data;
+    } catch (error) {
+        if (error instanceof TypeError && error.message.includes("fetch")) {
+            throw new Error("Network error. Please check your internet connection and try again.");
+        }
+        throw error;
+    }
+}
+
+
+export const getWeatherForecast = async (city) => {
+    try {
+        const response = await fetch(`${BASE_URL}/forecast?q=${lat}&appid=${API_KEY}&units=metric`);
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                throw new Error("City not found. Please check the city name and try again.");
+            } else if (response.status === 401) {
+                throw new Error("Invalid API key. Please check your API key and try again.");
+            }
+        } else {
+            throw new Error("Failed to fetch current weather data");
+        }
+
+
+
+        return await response.json();
+
+    } catch (error) {
+        if (error instanceof TypeError && error.message.includes("fetch")) {
+            throw new Error("Network error. Please check your internet connection and try again.");
+        }
+        throw error;
+    }
+}
+
+export const searchCities = async (query) => {
+    try {
+        const response = await fetch(`${GEO_URL}/direct?q=${query}&limit=5&appid=${API_KEY}`);
+
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error("Invalid API key. Please check your API key and try again.");
+            }
+        } else {
+            throw new Error("Failed to fetch current weather data");
+        }
+
+
+
+        const data =  await response.json();
+
+        return data.map((city) => ({
+                name: city.name,
+                lat: city.lat,
+                lon: city.lon,
+                country: city.country,
+                state: city.state || '',
+                
+        }))
+
+    } catch (error) {
+        if (error instanceof TypeError && error.message.includes("fetch")) {
+            throw new Error("Network error. Please check your internet connection and try again.");
+        }
+        throw error;
+    }
+}
+

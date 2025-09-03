@@ -5,10 +5,14 @@ import TemperatureToggle from './components/temperatureToggle'
 import LoadingSpinner from './components/LoadinSpinner'
 import ErrorMessage from './components/ErrorMessage'
 import WeatherCard from './components/WeatherCard'
+import WeatherForecast from './components/WeatherForecast'
+import 
 
 
 function App() {
   const [count, setCount] = useState(0)
+
+  
 
   return (
     <>
@@ -51,6 +55,9 @@ function App() {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               <div className='xl:col-span-2'>
                 <WeatherCard />
+              </div>
+              <div className='xl:col-span-1'>
+                <WeatherForecast />
               </div>
             </div>
           </div>
