@@ -7,7 +7,7 @@ import { getCurrentWeather,
 export const useWeather = () => {
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecast, setForecast] = useState(null);
-    cosnt [LucideClockFading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [unit, setUnit] = useState('C'); // 'metric' for Celsius, 'imperial' for Fahrenheit
 
