@@ -1,5 +1,5 @@
 import { MapPin, X, Search } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function SearchBar({onSearch, onLocation, loading}) {
 
@@ -8,12 +8,52 @@ function SearchBar({onSearch, onLocation, loading}) {
     const [showSuggestions, setShowSuggestions] = useState(false)   
     const [searchLoading, setSearchLoading] = useState(false)
 
+    const searchRef = useRef();
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchRef.current && !searchRef.current.contains(event.target)) {
+                setShowSuggestions(false);
+            }
+        };   
+        
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+    },[]);
+    
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (query.trim() === '') return
+        onSearch(query.trim())
+        setShowSuggestions(false)
+        setQuery('')
+
+        console.log('Searching for:', query)
+    }
+
+    const clearSearch = () => {
+        setQuery('')
+        setSuggestions([])
+        setShowSuggestions(false)
+    }
+
+    const fetchSuggestions = async (input) => {
+        const cityName = input.name ? `${input.name}, ${input.state}` : input.name;
+        onSearch(cityName)
+        setQuery('')
+        setShowSuggestions(false)
+    }
+
     return (
-        <div className="relative w-full max-w-2xl">
-            <form className="relative">
+        <div className="relative w-full max-w-2xl " ref={searchRef}>
+            <form className="relative" onSubmit={handleSubmit}>
                 <div className="relative group ">
                     <Search className="absolute left-4 top-1/2 transform -translate-y-0.5 text-white/60 w-5 h-5 group-focus-within:text-white transition-all"></Search>
                     <input type="text" 
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search for a city or location..."
                     className="w-full pl-12 pr-24 py-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-white placeholder-white/50 focus:outline-none foucs:ring-2 focus:ring-white/30 focus:border-white/40 transition-all duration-300 hover:bg-white/20" 
                     disabled={loading}/>
