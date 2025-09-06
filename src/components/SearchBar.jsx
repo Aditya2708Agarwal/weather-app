@@ -104,9 +104,10 @@ function SearchBar({ onSearch, onLocation, loading }) {
                             ) : (
                                 suggestions.map((item, index) => {
                                     return (
-                                        <button className='w-full px-6 py-3 text-left hover:bg-white/10 transition-all duration-200 flex items-center justify-between group-border-b border-white/10 last:border-b-0'><div className='font-medium text-white group-hover:text-white w-1/4'
-                                         key={`${item.name}-${item.country}-${index}`}
-                                         onClick={() => fetchSuggestions(item)}>{item.name}
+                                        <button className='w-full px-6 py-3 text-left hover:bg-white/10 transition-all duration-200 flex items-center justify-between group-border-b border-white/10 last:border-b-0'
+                                        key={`${item.name}-${item.country}-${index}`}
+                                        onClick={() => fetchSuggestions(item)}><div className='font-medium text-white group-hover:text-white w-1/4'
+                                         >{item.name}
                                             {item.state && <span className='text-white/70'>{",    "+item.state}</span>}
                                         </div>
                                             <div className='text-md text-white/50'>{item.country}</div>
