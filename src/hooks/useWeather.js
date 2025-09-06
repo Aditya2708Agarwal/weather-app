@@ -28,7 +28,7 @@ export const useWeather = () => {
         setLoading(false);
     };
 
-    const fetchWeatherByLoacation = async () => {
+    const fetchWeatherByLocation = async () => {
         if(!navigator.geolocation) {
             setError("Geolocation is not supported by your browser");
             return;
@@ -63,7 +63,7 @@ export const useWeather = () => {
 
     useEffect(() => {
         fetchWeatherByCity("Delhi");
-    });
+    }, []);
 
     return {
         currentWeather,
@@ -72,7 +72,7 @@ export const useWeather = () => {
         error,
         unit,   
         fetchWeatherByCity,
-        fetchWeatherByLoacation,
+        fetchWeatherByLocation,
         toggleUnit
     };
 }

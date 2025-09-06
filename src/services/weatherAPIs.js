@@ -1,4 +1,4 @@
-const API_KEY = "37d2728642154e39ae04a05c2d9fb256";
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 const GEO_URL = "https://api.openweathermap.org/geo/1.0";
 
@@ -11,9 +11,9 @@ export const getCurrentWeather = async (city) => {
                 throw new Error("City not found. Please check the city name and try again.");
             } else if (response.status === 401) {
                 throw new Error("Invalid API key. Please check your API key and try again.");
+            } else {
+                throw new Error("Failed to fetch current weather data");
             }
-        } else {
-            throw new Error("Failed to fetch current weather data");
         }
 
 
@@ -40,9 +40,9 @@ export const getCurrentWeatherByCoords = async (lat, lon) => {
         if (!response.ok) {
             if (response.status === 401) {
                 throw new Error("Invalid API key. Please check your API key and try again.");
+            } else {
+                throw new Error("Failed to fetch current weather data");
             }
-        } else {
-            throw new Error("Failed to fetch current weather data");
         }
 
 
@@ -64,16 +64,16 @@ export const getCurrentWeatherByCoords = async (lat, lon) => {
 
 export const getWeatherForecast = async (city) => {
     try {
-        const response = await fetch(`${BASE_URL}/forecast?q=${lat}&appid=${API_KEY}&units=metric`);
+        const response = await fetch(`${BASE_URL}/forecast?q=${city}&appid=${API_KEY}&units=metric`);
 
         if (!response.ok) {
             if (response.status === 404) {
                 throw new Error("City not found. Please check the city name and try again.");
             } else if (response.status === 401) {
                 throw new Error("Invalid API key. Please check your API key and try again.");
+            } else {
+                throw new Error("Failed to fetch current weather data");
             }
-        } else {
-            throw new Error("Failed to fetch current weather data");
         }
 
 
@@ -81,7 +81,7 @@ export const getWeatherForecast = async (city) => {
         return await response.json();
 
     } catch (error) {
-        if (error instanceof TypeError && error.message.includes("fetch")) {
+        if (error instanceof TypeError) {
             throw new Error("Network error. Please check your internet connection and try again.");
         }
         throw error;
@@ -96,26 +96,26 @@ export const searchCities = async (query) => {
         if (!response.ok) {
             if (response.status === 401) {
                 throw new Error("Invalid API key. Please check your API key and try again.");
+            } else {
+                throw new Error("Failed to fetch current weather data");
             }
-        } else {
-            throw new Error("Failed to fetch current weather data");
         }
 
 
 
-        const data =  await response.json();
+        const data = await response.json();
 
         return data.map((city) => ({
-                name: city.name,
-                lat: city.lat,
-                lon: city.lon,
-                country: city.country,
-                state: city.state || '',
-                
+            name: city.name,
+            lat: city.lat,
+            lon: city.lon,
+            country: city.country,
+            state: city.state || '',
+
         }))
 
     } catch (error) {
-        if (error instanceof TypeError && error.message.includes("fetch")) {
+        if (error instanceof TypeError) {
             throw new Error("Network error. Please check your internet connection and try again.");
         }
         throw error;

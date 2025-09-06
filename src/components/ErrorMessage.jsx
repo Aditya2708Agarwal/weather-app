@@ -1,6 +1,6 @@
 import { AlertCircle, RefreshCw } from "lucide-react";
 
-function ErrorMessage() {
+function ErrorMessage({ message, onRetry }) {
   return (
     <div className="bg-red-500 backdrop-blur-xl border border-red-400/20 rounded-3xl p-6 shadow-2xl">
       <div className="flex items-center space-x-4 mb-4">
@@ -12,13 +12,13 @@ function ErrorMessage() {
         </h3>
       </div>
 
-      <p className="text-white/80 mb-6 leading-relaxed">Message</p>
+      <p className="text-white/80 mb-6 leading-relaxed">{message}</p>
 
       {/* Conditional Rendering */}
-      <button className="flex items-center space-x-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-2xl px-6 py-3 text-white transition-all duration-300 hover:scale-105 hover:shadow-lg">
-        <RefreshCw className="w-5 h-5" />
-        <span className="font-medium">Try Again</span>
-      </button>
+      {onRetry && (<button className="flex items-center space-x-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-2xl px-6 py-3 text-white transition-all duration-300 hover:scale-105 hover:shadow-lg">
+        <RefreshCw className="w-5 h-5" onClick={onRetry} />
+        <span className="font-medium" >Try Again</span>
+      </button>)}
     </div>
   );
 }
