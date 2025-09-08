@@ -69,6 +69,7 @@ export const getBackgroundImageByWeather = (weatherMain) => {
     case 'clouds':
       return "url('https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?w=1200&h=800&fit=crop')"; // Cloudy
     case 'rain':
+      return "url('https://images.unsplash.com/photo-1433863448220-78aaa064ff47?w=1200&h=800&fit=crop')"; // Rainy
     case 'drizzle':
       return "url('https://images.unsplash.com/photo-1433863448220-78aaa064ff47?w=1200&h=800&fit=crop')"; // Rainy
     case 'snow':
